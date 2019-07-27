@@ -1,0 +1,4 @@
+[submodule ".vuepress/theme"]
+	path = .vuepress/theme
+	url = git@github.com:im/vuepress-theme-postline.git
+	branch = master

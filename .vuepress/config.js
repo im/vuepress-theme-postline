@@ -1,7 +1,7 @@
 module.exports = {
     port: 9090,
-    title: 'vuepress-theme-travis',
-    description: 'vuepress-theme-travis',
+    title: 'vuepress-theme-postline',
+    description: '基于vuepres 主题',
     // theme: 'travis',
     markdown: {
         lineNumbers: true
