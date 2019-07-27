@@ -1,24 +1,23 @@
-const path = require('path')
-
-// Theme API.
 module.exports = (options, ctx) => ({
-    alias() {
-        const { themeConfig, siteConfig } = ctx
-        // resolve algolia
-        const isAlgoliaSearch = (
-            themeConfig.algolia
-            || Object.keys(siteConfig.locales && themeConfig.locales || {})
-                .some(base => themeConfig.locales[base].algolia)
-        )
-        return {
-            '@AlgoliaSearchBox': isAlgoliaSearch
-                ? path.resolve(__dirname, 'components/AlgoliaSearchBox.vue')
-                : path.resolve(__dirname, 'noopModule.js')
-        }
-    },
-
     plugins: [
-        ['@vuepress/active-header-links', options.activeHeaderLinks],
+        [
+            '@vuepress/last-updated',
+            {
+                transformer: (timestamp, lang) => {
+                    // 不要忘了安装 moment
+                    const moment = require('moment')
+                    moment.locale(lang)
+                    return {
+                        date: moment(timestamp).format('YYYY-MM-DD'),
+                        year: moment(timestamp).format('YYYY'),
+                        month: moment(timestamp).format('MM'),
+                        day:  moment(timestamp).format('DD'),
+                        timestamp: timestamp,
+                        fromNow: moment(timestamp).fromNow()
+                    }
+                }
+            }
+        ],
         '@vuepress/search',
         '@vuepress/plugin-nprogress',
         ['container', {

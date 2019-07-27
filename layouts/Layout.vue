@@ -1,149 +1,108 @@
 <template>
-  <div
-    class="theme-container"
-    :class="pageClasses"
-    @touchstart="onTouchStart"
-    @touchend="onTouchEnd"
-  >
-    <Navbar
-      v-if="shouldShowNavbar"
-      @toggle-sidebar="toggleSidebar"
-    />
+    <div class="theme-container">
+        <TopBar></TopBar>
 
-    <div
-      class="sidebar-mask"
-      @click="toggleSidebar(false)"
-    ></div>
+        <TimeLine v-if="isHome" :pages="pages"></TimeLine>
 
-    <Sidebar
-      :items="sidebarItems"
-      @toggle-sidebar="toggleSidebar"
-    >
-      <slot
-        name="sidebar-top"
-        slot="top"
-      />
-      <slot
-        name="sidebar-bottom"
-        slot="bottom"
-      />
-    </Sidebar>
-
-    <Home v-if="$page.frontmatter.home"/>
-
-    <Page
-      v-else
-      :sidebar-items="sidebarItems"
-    >
-      <slot
-        name="page-top"
-        slot="top"
-      />
-      <slot
-        name="page-bottom"
-        slot="bottom"
-      />
-    </Page>
-  </div>
+    </div>
 </template>
 
 <script>
-import Home from '@theme/components/Home.vue'
-import Navbar from '@theme/components/Navbar.vue'
-import Page from '@theme/components/Page.vue'
-import Sidebar from '@theme/components/Sidebar.vue'
-import { resolveSidebarItems } from '../util'
-
+import moment from 'moment'
+import TopBar from '@theme/components/TopBar.vue'
+import TimeLine from '@theme/components/TimeLine.vue'
 export default {
-  components: { Home, Page, Sidebar, Navbar },
-
-  data () {
-    return {
-      isSidebarOpen: false
-    }
-  },
-
-  computed: {
-    shouldShowNavbar () {
-      const { themeConfig } = this.$site
-      const { frontmatter } = this.$page
-      if (
-        frontmatter.navbar === false
-        || themeConfig.navbar === false) {
-        return false
-      }
-      return (
-        this.$title
-        || themeConfig.logo
-        || themeConfig.repo
-        || themeConfig.nav
-        || this.$themeLocaleConfig.nav
-      )
+    components: { 
+        TopBar,
+        TimeLine
     },
 
-    shouldShowSidebar () {
-      const { frontmatter } = this.$page
-      return (
-        !frontmatter.home
-        && frontmatter.sidebar !== false
-        && this.sidebarItems.length
-      )
-    },
-
-    sidebarItems () {
-      return resolveSidebarItems(
-        this.$page,
-        this.$page.regularPath,
-        this.$site,
-        this.$localePath
-      )
-    },
-
-    pageClasses () {
-      const userPageClass = this.$page.frontmatter.pageClass
-      return [
-        {
-          'no-navbar': !this.shouldShowNavbar,
-          'sidebar-open': this.isSidebarOpen,
-          'no-sidebar': !this.shouldShowSidebar
-        },
-        userPageClass
-      ]
-    }
-  },
-
-  mounted () {
-    this.$router.afterEach(() => {
-      this.isSidebarOpen = false
-    })
-  },
-
-  methods: {
-    toggleSidebar (to) {
-      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
-    },
-
-    // side swipe
-    onTouchStart (e) {
-      this.touchStart = {
-        x: e.changedTouches[0].clientX,
-        y: e.changedTouches[0].clientY
-      }
-    },
-
-    onTouchEnd (e) {
-      const dx = e.changedTouches[0].clientX - this.touchStart.x
-      const dy = e.changedTouches[0].clientY - this.touchStart.y
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-        if (dx > 0 && this.touchStart.x <= 80) {
-          this.toggleSidebar(true)
-        } else {
-          this.toggleSidebar(false)
+    data() {
+        return {
         }
-      }
+    },
+
+    computed: {
+        isHome () {
+            return this.$page.frontmatter.home;
+        },
+        pages () {
+            return this.formatPages();
+        }
+    },
+
+    mounted() {
+        
+    },
+
+    methods: {
+        formatPages () {
+            const pageMap = {}
+            this.$site.pages.forEach((page) => {
+                if (page.frontmatter.home) return;
+                const createDate = this.getCreateDate(page);
+                const year = createDate.year.toString()
+                const month = createDate.month.toString()
+                if (pageMap[year + month]) {
+                    pageMap[year + month].push(page)
+                } else {
+                    pageMap[year + month] = []
+                    pageMap[year + month].push(page)
+                }
+                page.createDate = createDate;
+            })
+            return this.sortPages(pageMap);
+        },
+        sortPages (pageMap, key) {
+            let pages = []
+            const sortArr = Object.keys(pageMap).sort(this.sortNumber);
+            sortArr.forEach(yearMonth => {
+                let yearMonthPages = pageMap[yearMonth];
+                yearMonthPages = yearMonthPages.sort((a, b) => {
+                    return b.createDate.timestamp - a.createDate.timestamp
+                })
+                pages.push({
+                    pages: yearMonthPages,
+                    date: yearMonth.slice(0, 4) + '-' + yearMonth.slice(4, 6),
+                    year: yearMonth.slice(0, 4),
+                    month: yearMonth.slice(4, 6)
+                })  
+            })
+            return pages;
+        },
+        sortNumber (a, b) {
+            return b - a
+        },
+        getCreateDate (page) {
+            const createDate = page.frontmatter.createDate
+            if (createDate) {
+                const dateObj = {
+                    date: moment(createDate).format('YYYY-MM-DD'),
+                    year: moment(createDate).format('YYYY'),
+                    month: moment(createDate).format('MM'),
+                    day:  moment(createDate).format('DD'),
+                    timestamp: new Date(moment(createDate).format('YYYY-MM-DD')).getTime(),
+                    fromNow: moment(createDate).fromNow()
+                }
+                return dateObj;
+            }
+            if (page.lastUpdated) {
+                return page.lastUpdated;
+            }
+            return {
+                date: moment(createDate).format('YYYY-MM-DD'),
+                year: moment().format('YYYY'),
+                month: moment().format('MM'),
+                day:  moment().format('DD'),
+                timestamp: new Date().getTime(),
+                fromNow: moment().fromNow()
+            }
+        }
+    },
+    created () {
     }
-  }
 }
 </script>
 
-<style src="prismjs/themes/prism-tomorrow.css"></style>
+<style lang="stylus">
+</style>
