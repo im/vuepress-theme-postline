@@ -4,7 +4,7 @@
             <h1 class="logo">
                 <a href="/">{{$site.title}}</a>
             </h1>
-            <div class="search">
+            <div class="search" v-if="$themeConfig.search">
                 <SearchBox />
             </div>
         </div>

@@ -1,9 +1,9 @@
 <template>
-    <div class="theme-container">
+    <div class="theme-container postline">
         <TopBar></TopBar>
 
         <TimeLine v-if="isHome" :pages="pages"></TimeLine>
-
+        <Page v-else></Page>
     </div>
 </template>
 
@@ -11,10 +11,12 @@
 import moment from 'moment'
 import TopBar from '@theme/components/TopBar.vue'
 import TimeLine from '@theme/components/TimeLine.vue'
+import Page from '@theme/components/Page.vue'
 export default {
     components: { 
         TopBar,
-        TimeLine
+        TimeLine,
+        Page
     },
 
     data() {
@@ -100,6 +102,7 @@ export default {
         }
     },
     created () {
+        console.log(this)
     }
 }
 </script>
