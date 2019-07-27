@@ -1,7 +1,3 @@
----
-createDate: 2019-07-12
----
-
 # Node.js API <Badge text="1.0.0-alpha.44+"/>
 
 ## 使用
@@ -20,7 +16,7 @@ const { createApp, dev, build, eject } = require('vuepress')
 
 用于准备当前站点上下文的异步方法。其中包含加载页面和插件、应用插件等。
 
-#### App.prototype.dev: () => Promise\<App> | neverd
+#### App.prototype.dev: () => Promise\<App> | never
 
 使用当前应用程序上下文启动一个 devProcess.
 

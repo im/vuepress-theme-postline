@@ -1,8 +1,3 @@
----
-createDate: 2011-01-11
----
-
-
 # 命令行接口
 
 ## 基本用法
@@ -13,7 +8,7 @@ vuepress <command> targetDir [options]
 
 ## build
 
-在指定的目录生成一个静态站点。c
+在指定的目录生成一个静态站点。
 
 ### -p, --port `<port>`
 查看 [port](../config/README.md#port)。

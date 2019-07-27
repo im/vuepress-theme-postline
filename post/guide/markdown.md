@@ -1,8 +1,4 @@
----
-title: Markdown 拓展Markdown 拓展Markdown 拓展Markdown 拓展Markdown 拓展
-createDate: 2017-12-11
-cover: https://themify.me/demo/themes/postline/files/2012/08/105701236-978x652.jpg
----
+# Markdown 拓展
 
 ## Header Anchors
 
@@ -28,8 +24,6 @@ cover: https://themify.me/demo/themes/postline/files/2012/08/105701236-978x652.j
    ├─ three.md
    └─ four.md
 ```
-
-<!-- more -->
 
 假设你现在在 `foo/one.md` 中：
 
