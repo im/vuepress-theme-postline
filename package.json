@@ -1,11 +1,15 @@
 {
-  "name": "vuepress-theme-postline",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
-  },
-  "author": "tangxiaomi",
-  "license": "ISC"
+    "name": "vuepress-theme-postline",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 0"
+    },
+    "author": "tangxiaomi",
+    "license": "ISC",
+    "devDependencies": {
+        "moment": "^2.24.0",
+        "vuepress-theme-postline": "0.0.0"
+    }
 }
