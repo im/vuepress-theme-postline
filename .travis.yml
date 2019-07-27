@@ -1,0 +1,12 @@
+language: node_js
+sudo: required
+git:
+  submodules: false
+node_js:
+  - 8.11.1
+cache:
+  directories:
+    - node_modules
+script:
+    - ./deploy.sh
+branch: dev
