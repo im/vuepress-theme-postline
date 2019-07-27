@@ -3,9 +3,5 @@
         "dev": "vuepress dev",
         "build": "vuepress build"
     },
-    "dependencies": {},
-    "devDependencies": {
-        "moment": "^2.24.0",
-        "vuepress-theme-postline": "0.0.0"
-    }
+    "dependencies": {}
 }

@@ -4,7 +4,8 @@
 set -e
 
 npm install -g vuepress
-npm install
+npm install moment
+npm install vuepress-theme-postline
 
 # 生成静态文件
 npm run build
