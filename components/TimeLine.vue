@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.time-line-box
+.time-line-box.layout-inner
     padding-top 95px
     .loading
         height 90px
