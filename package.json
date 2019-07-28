@@ -9,6 +9,6 @@
     "devDependencies": {
         "moment": "^2.24.0",
         "vue-infinite-scroll": "^2.0.2",
-        "vuepress-theme-postline": "0.0.6"
+        "vuepress-theme-postline": "^0.0.6"
     }
 }
