@@ -4,7 +4,9 @@
 set -e
 
 npm install -g vuepress
-npm install
+npm install vue-infinite-scroll
+npm install vuepress-theme-postline
+npm install moment
 
 # 生成静态文件
 npm run build
