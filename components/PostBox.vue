@@ -1,8 +1,5 @@
 <template>
-    <div class="month-box">
-        <div class="title">
-            <span>{{monthPage.date}}</span>
-        </div>
+    <div class="post-box">
         <div class="content">
             <div class="left" ref="left">
                 <PostItem v-for="(post, index) in leftPages" :post="post"></PostItem>
@@ -17,17 +14,15 @@
 <script>
 import PostItem from '@theme/components/PostItem.vue'
 export default {
-    name: 'MonthBox',
+    name: 'PostBox',
     props: {
-        monthPage : {
-            type: Object,
-            'default': () => {}
+        pages : {
+            type: Array,
+            'default': () => []
         }
     },
     data() {
         return {
-            data: [
-            ],
             leftPages: [],
             rightPages: []
         }
@@ -42,7 +37,7 @@ export default {
         updateWaterfall() {
             const leftHeight = this.$refs.left.clientHeight
             const rightHeight = this.$refs.right.clientHeight
-            let post = this.monthPage.pages.shift()
+            let post = this.pages.shift()
             if (post == null) {
                 return
             }
@@ -60,7 +55,7 @@ export default {
 }
 </script>
 <style lang="stylus">
-.month-box
+.post-box
     width 100%
     .title
         text-align center

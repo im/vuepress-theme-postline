@@ -1,5 +1,5 @@
 <template>
-    <div class="post-item">
+    <div class="post-item" v-if="post.show">
         <div class="post-date-top" v-if="$themeConfig.topTime">
             <span>{{post.createDate.date}}</span>
         </div>
@@ -10,14 +10,17 @@
         </div>
 
         <div class="post-img" v-if="$themeConfig.cover && !isMobile()">
-            <a :href="post.path">
-                <img :src="getCover(post)" :alt="post.title" />
+            <div class="img-loading">
+                <Loading ref="loading" :type="getLoadingType()"></Loading>
+            </div>
+            <a :href="post.path" class="img-link">
+                <img src="/" v-loadImg :loadSrc="getCover(post)" :alt="post.title" />
             </a>
         </div>
 
         <div class="post-cont">
             <div v-if="post.excerpt" v-html="post.excerpt"></div>
-            <Content v-else />
+            <!-- <Content v-else /> -->
         </div>
 
         <div class="square-button">
@@ -40,6 +43,8 @@
 </template>
 
 <script>
+import Loading from '@theme/components/Loading.vue'
+import { randomLoading } from '../util'
 export default {
     name: 'post-item',
     props: {
@@ -48,8 +53,24 @@ export default {
             default: () => {}
         }
     },
-    components: {},
+    directives: {
+        loadImg (el, binding, vnode){
+            const src = el.getAttribute('loadsrc')
+            let newImg = new Image()
+            newImg.src = src
+            newImg.onload = function(){
+                el.parentNode.parentNode.firstChild.style.zIndex = -10
+                el.src = src
+            }
+        }
+    },
+    components: {
+        Loading
+    },
     methods: {
+        getLoadingType () {
+            return randomLoading()
+        },
         isMobile () {
             return document.body.clientWidth <= 750;
         },
@@ -68,7 +89,7 @@ export default {
         getCover(post) {
             const len = this.getFontLen(post.title)
             if (post.frontmatter.cover) return post.frontmatter.cover
-            const  url = len > 13 ? `https://picsum.photos/500/300/?random&${new Date().getTime()}` : `https://fakeimg.pl/500x300/f1f1f1/9d9d9d/?retina=1&text=${post.title}&font=noto`
+            const  url = true ? `https://picsum.photos/400/200/?random&${new Date().getTime()}` : `https://fakeimg.pl/400x200/f1f1f1/9d9d9d/?retina=1&text=${post.title}&font=noto`
             return url
         }
     },
@@ -142,8 +163,22 @@ export default {
 .post-img
     max-width 100%
     margin 0 0 5px
+    min-height 100px
+    position relative
+    .img-loading
+        background #f1f1f1
+        display flex
+        align-items center
+        justify-content center
+        position absolute
+        left 0
+        top:0
+        z-index 1
+        width 100%
+        height 100%
     img
-        max-width 100%
+        width 100%
+        display block
 .post-cont
     margin-bottom 20px
 .post-meta

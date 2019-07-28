@@ -39,41 +39,13 @@ export default {
 
     methods: {
         formatPages () {
-            const pageMap = {}
             this.$site.pages.forEach((page) => {
-                if (page.frontmatter.home) return;
-                const createDate = this.getCreateDate(page);
-                const year = createDate.year.toString()
-                const month = createDate.month.toString()
-                if (pageMap[year + month]) {
-                    pageMap[year + month].push(page)
-                } else {
-                    pageMap[year + month] = []
-                    pageMap[year + month].push(page)
-                }
-                page.createDate = createDate;
+                page.createDate = this.getCreateDate(page);
+                page.show = false
             })
-            return this.sortPages(pageMap);
-        },
-        sortPages (pageMap, key) {
-            let pages = []
-            const sortArr = Object.keys(pageMap).sort(this.sortNumber);
-            sortArr.forEach(yearMonth => {
-                let yearMonthPages = pageMap[yearMonth];
-                yearMonthPages = yearMonthPages.sort((a, b) => {
-                    return b.createDate.timestamp - a.createDate.timestamp
-                })
-                pages.push({
-                    pages: yearMonthPages,
-                    date: yearMonth.slice(0, 4) + '-' + yearMonth.slice(4, 6),
-                    year: yearMonth.slice(0, 4),
-                    month: yearMonth.slice(4, 6)
-                })  
-            })
-            return pages;
-        },
-        sortNumber (a, b) {
-            return b - a
+            return this.$site.pages.sort((a, b) => {
+                return b.createDate.timestamp - a.createDate.timestamp
+            }).filter(v => !v.frontmatter.home)
         },
         getCreateDate (page) {
             const createDate = page.frontmatter.createDate
@@ -102,7 +74,6 @@ export default {
         }
     },
     created () {
-        console.log(this)
     }
 }
 </script>

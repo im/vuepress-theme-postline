@@ -185,6 +185,11 @@ export function resolveNavLinkItem(linkItem) {
     })
 }
 
+export function randomLoading () {
+    const types = ['roller', 'hourglass', 'ripple', 'ellipsis', 'heart']
+    return types[Math.floor(Math.random() * (0 - types.length) + types.length)]
+}
+
 /**
  * @param { Route } route
  * @param { Array<string|string[]> | Array<SidebarGroup> | [link: string]: SidebarConfig } config
