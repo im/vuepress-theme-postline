@@ -72,7 +72,7 @@ export default {
             return randomLoading()
         },
         isMobile () {
-            return document.body.clientWidth <= 750;
+            return window.document.body.clientWidth <= 750;
         },
         isChinese(temp) {
             var re = /[^\u4e00-\u9fa5]/
