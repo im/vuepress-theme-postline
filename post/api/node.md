@@ -12,6 +12,8 @@ const { createApp, dev, build, eject } = require('vuepress')
 
 创建一个 VuePress 应用实例。
 
+<!-- more -->
+
 #### App.prototype.process: () => Promise\<void> | never
 
 用于准备当前站点上下文的异步方法。其中包含加载页面和插件、应用插件等。

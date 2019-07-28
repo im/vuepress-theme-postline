@@ -16,6 +16,8 @@ vuepress <command> targetDir [options]
 ### -t, --temp `<temp>`
 查看 [temp](../config/README.md#temp)。
 
+<!-- more -->
+
 ### -c, --cache `[cache]`
 ### --no-cache
 查看 [cache](../config/README.md#cache)。
