@@ -3,5 +3,9 @@
         "dev": "vuepress dev",
         "build": "vuepress build"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "devDependencies": {
+        "vue-infinite-scroll": "^2.0.2",
+        "vuepress-theme-postline": "0.0.6"
+    }
 }
