@@ -9,8 +9,8 @@
             <a :href="post.path" :title="post.title">{{post.title}}</a>
         </div>
 
-        <div class="post-img" v-if="$themeConfig.cover">
-            <a :href="getCover(post)">
+        <div class="post-img" v-if="$themeConfig.cover && !isMobile()">
+            <a :href="post.path">
                 <img :src="getCover(post)" :alt="post.title" />
             </a>
         </div>
@@ -50,6 +50,9 @@ export default {
     },
     components: {},
     methods: {
+        isMobile () {
+            return document.body.clientWidth <= 750;
+        },
         isChinese(temp) {
             var re = /[^\u4e00-\u9fa5]/
             if (re.test(temp)) return false
@@ -71,7 +74,6 @@ export default {
     },
 
     created() {
-        // console.log(this)
     }
 }
 </script>
