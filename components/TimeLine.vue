@@ -11,14 +11,10 @@
 </template>
 
 <script>
-import infiniteScroll from 'vue-infinite-scroll'
 import PostBox from '@theme/components/PostBox.vue'
 import Loading from '@theme/components/Loading.vue'
 export default {
     name: 'time-line',
-    directives: {
-        infiniteScroll
-    },
     props: {
         pages: {
             type: Array,
