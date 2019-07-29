@@ -1,8 +1,8 @@
 module.exports = {
     port: 9090,
     base: '/vuepress-theme-postline/',
-    title: 'vuepress-theme-postline',
-    description: '基于vuepres 主题',
+    title: 'Postline',
+    description: '基于vuepres 主题 vuepress-theme-postline',
     theme: 'postline',
     // permalink: "/:year/:month/:day/:slug",
     markdown: {
