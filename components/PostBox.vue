@@ -38,7 +38,7 @@ export default {
             const leftHeight = this.$refs.left.clientHeight
             const rightHeight = this.$refs.right.clientHeight
             let post = this.pages.shift()
-            if (post == null) {
+            if (!post) {
                 return
             }
             if (leftHeight <= rightHeight) {

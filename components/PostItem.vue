@@ -1,5 +1,5 @@
 <template>
-    <div class="post-item" v-if="post.show">
+    <div class="post-item">
         <div class="post-date-top" v-if="$themeConfig.topTime">
             <span>{{post.createDate.date}}</span>
         </div>
@@ -89,7 +89,7 @@ export default {
         getCover(post) {
             const len = this.getFontLen(post.title)
             if (post.frontmatter.cover) return post.frontmatter.cover
-            const  url = true ? `https://picsum.photos/400/200/?random&${new Date().getTime()}` : `https://fakeimg.pl/400x200/f1f1f1/9d9d9d/?retina=1&text=${post.title}&font=noto`
+            const  url = true ? `https://picsum.photos/400/150/?random&${new Date().getTime()}` : `https://fakeimg.pl/150/f1f1f1/9d9d9d/?retina=1&text=${post.title}&font=noto`
             return url
         }
     },
@@ -163,7 +163,7 @@ export default {
 .post-img
     max-width 100%
     margin 0 0 5px
-    min-height 100px
+    min-height 150px
     position relative
     .img-loading
         background #f1f1f1
@@ -176,6 +176,11 @@ export default {
         z-index 1
         width 100%
         height 100%
+    .img-link
+        display block
+        width 100%
+        max-height 150px
+        overflow hidden
     img
         width 100%
         display block

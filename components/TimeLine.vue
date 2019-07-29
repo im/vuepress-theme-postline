@@ -1,9 +1,9 @@
 <template>
     <ClientOnly>
-        <div class="layout-inner time-line-box" ref="timeLineBox" :infinite-scroll-disabled="busy">
+        <div class="layout-inner time-line-box" ref="timeLineBox">
             <div class="time-line-main">
                 <div class="timeline-bar"></div>
-                <PostBox :pages="pages"></PostBox>
+                <PostBox :pages="loadPages" ref="postBox"></PostBox>
             </div>
             <div class="loading" v-if="loading">
                 <Loading></Loading>
@@ -25,10 +25,8 @@ export default {
     },
     data() {
         return {
-            copyPages: [],
             loadPages: [],
-            busy: false,
-            isDefaultLoad: true,
+            isDefaultLoad: false,
             loading: false
         }
     },
@@ -41,41 +39,39 @@ export default {
             context: this
         }
         const binding = {
-            value : this.loadMore
+            value: this.loadMore
         }
         import('../directive/infinite-scroll/index.js').then(module => {
             this.$nextTick(() => {
-                module.default(this.$refs.timeLineBox, binding,  vnode)
+                module.default(this.$refs.timeLineBox, binding, vnode)
             })
         })
     },
 
     methods: {
-        loadMore () {
-            if (this.isDefaultLoad) return this.isDefaultLoad = false
+        loadMore() {
+            if (this.isDefaultLoad) return (this.isDefaultLoad = false)
             this.setPagesShow(5)
         },
         setPagesShow(num) {
             this.loading = true
-            let pageShowIndex = this.copyPages.filter(v => v.show).length;
-            this.copyPages.forEach((page, index) => {
-                if (index < (pageShowIndex + num)) {
-                    this.$set(page, 'show', true)
-                }
-            });
-            this.pages.splice(0, this.pages.length)
-            this.copyPages.forEach(page => {
-                this.pages.push(page)
-            })
-            if (pageShowIndex === this.copyPages.length) {
-                this.busy = true
+            if (!this.pages.length) {
                 this.loading = false
+                return
             }
+            this.loadPages.splice(0, this.loadPages.length)
+            this.pages.splice(0, num).forEach(page => {
+                this.loadPages.push(page)
+            })
+            if (!this.isDefaultLoad) {
+                this.$refs.postBox.updateWaterfall()
+            }
+            this.isDefaultLoad = false
         }
     },
 
     created() {
-        this.copyPages = [...this.pages]
+        this.isDefaultLoad = true
         this.setPagesShow(10)
     }
 }
