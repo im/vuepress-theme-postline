@@ -1,7 +1,9 @@
 <template>
-    <div class="theme-container postline">
+    <div class="theme-container postline" :class="{over: loading}">
         <TopBar></TopBar>
-
+        <div class="postline-loading" v-if="loading">
+            <Loading ref="loading" :type="getLoadingType()"></Loading>
+        </div>
         <TimeLine v-if="isHome" :pages="pages"></TimeLine>
         <Page v-else></Page>
     </div>
@@ -9,6 +11,8 @@
 
 <script>
 import moment from 'moment'
+import Loading from '@theme/components/Loading.vue'
+import { randomLoading } from '../util'
 import TopBar from '@theme/components/TopBar.vue'
 import TimeLine from '@theme/components/TimeLine.vue'
 import Page from '@theme/components/Page.vue'
@@ -16,11 +20,13 @@ export default {
     components: { 
         TopBar,
         TimeLine,
-        Page
+        Page,
+        Loading
     },
 
     data() {
         return {
+            loading: true
         }
     },
 
@@ -38,13 +44,17 @@ export default {
     },
 
     methods: {
+        getLoadingType () {
+            return randomLoading()
+        },
         formatPages () {
             this.$site.pages.forEach((page) => {
                 page.createDate = this.getCreateDate(page);
             })
-            return this.$site.pages.sort((a, b) => {
+            const pages = this.$site.pages.sort((a, b) => {
                 return b.createDate.timestamp - a.createDate.timestamp
             }).filter(v => !v.frontmatter.home)
+            return pages
         },
         getCreateDate (page) {
             const createDate = page.frontmatter.createDate
@@ -72,11 +82,34 @@ export default {
             }
         }
     },
+    mounted () {
+        this.$bus.$on('loaded', () => {
+            this.loading = false
+        })
+    },
+    beforeDestroy () {
+        this.$bus.$off('loaded')
+    },
     created () {
-        console.log(this);
     }
 }
 </script>
 
 <style lang="stylus">
+#app
+   width 100%
+   height 100% 
+.postline
+    width 100%
+    height 100%
+    position relative
+    &.over
+        overflow hidden
+    .postline-loading
+        width 100%
+        height 100%
+        padding-top 60px
+        display flex
+        align-items center
+        justify-content center
 </style>

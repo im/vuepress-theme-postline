@@ -7,7 +7,7 @@
             </a>
         </div>
 
-        <Content />
+        <Content class="page-content" />
 
         <div class="post-meta">
             <a target="_blank" :href="$themeConfig.authorInfo.github" class="author" v-if="$themeConfig.authorInfo">
@@ -33,11 +33,14 @@ export default {
             return this.$page;
         }
     },
-    components: {
+    watch: {
     },
-
-    created() {
-        // console.log(this.$page)
+    mounted () {
+        this.$nextTick(() => {
+            setTimeout(() => {
+                this.$bus.$emit('loaded')
+            }, 300)
+        })
     }
 }
 </script>
@@ -45,6 +48,8 @@ export default {
 <style lang="stylus">
 .page-main
     padding 70px 10px
+    .page-content
+         min-height calc(100vh - 220px)
     a
         text-decoration underline!important
     .post-img

@@ -1,26 +1,29 @@
 <template>
-    <div class="lds-roller" v-if="type === 'roller'">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="g-loading">
+        <div class="lds-roller" v-if="type === 'roller'">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="lds-hourglass" v-else-if="type === 'hourglass'"></div>
+        <div class="lds-ripple" v-else-if="type === 'ripple'">
+            <div></div>
+            <div></div>
+        </div>
+        <div class="lds-ellipsis" v-else-if="type === 'ellipsis'">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="lds-heart" v-else-if="type === 'heart'"><div></div></div>
+        <div class="progress" v-if="progress">100%</div>
     </div>
-    <div class="lds-hourglass" v-else-if="type === 'hourglass'"></div>
-    <div class="lds-ripple" v-else-if="type === 'ripple'">
-        <div></div>
-        <div></div>
-    </div>
-    <div class="lds-ellipsis" v-else-if="type === 'ellipsis'">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div class="lds-heart" v-else-if="type === 'heart'"><div></div></div>
 </template>
 
 <script>
@@ -30,6 +33,10 @@ export default {
         type: {
             type: String,
             default: 'roller'
+        },
+        progress: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {},
@@ -42,6 +49,10 @@ export default {
 </script>
 
 <style lang="stylus">
+.g-loading
+    display flex
+    align-items center
+    justify-content center
 .lds-roller
     display inline-block
     position relative
@@ -57,7 +68,7 @@ export default {
     width 6px
     height 6px
     border-radius 50%
-    background #9d9d9d
+    background #39aa56;
     margin -3px 0 0 -3px
 .lds-roller div:nth-child(1)
     animation-delay -0.036s
@@ -118,7 +129,7 @@ export default {
     margin 6px
     box-sizing border-box
     border 26px solid #fff
-    border-color #9d9d9d transparent #9d9d9d transparent
+    border-color #39aa56 transparent #39aa56 transparent
     animation lds-hourglass 1.2s infinite
 @keyframes lds-hourglass
     0%

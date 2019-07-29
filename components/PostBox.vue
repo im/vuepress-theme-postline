@@ -24,7 +24,8 @@ export default {
     data() {
         return {
             leftPages: [],
-            rightPages: []
+            rightPages: [],
+            index: 0
         }
     },
     components: {
@@ -32,8 +33,40 @@ export default {
     },
     mounted() {
         this.updateWaterfall()
+        this.polling()
     },
     methods: {
+        polling () {
+            this.$nextTick(() => {
+                this.index++
+                if (this.index < 10){
+                    this.polling()
+                } else {
+                    this.loadImage()
+                }
+            })
+        },
+        getCover(post) {
+            if (post.frontmatter.cover) return post.frontmatter.cover
+            post.frontmatter.cover = `https://picsum.photos/400/150/?random&${post.key}`
+            return `https://picsum.photos/400/150/?random&${post.key}`
+        },
+        loadImage () {
+            const pages = this.leftPages.concat(this.rightPages)
+            const len = pages.length
+            let index = 0;
+            pages.forEach(post => {
+                const src = this.getCover(post)
+                let newImg = new Image()
+                newImg.src = src
+                newImg.onload = () => {
+                    index++
+                    if (index === len) {
+                        this.$bus.$emit('loaded')
+                    }
+                }
+            });
+        },
         updateWaterfall() {
             const leftHeight = this.$refs.left.clientHeight
             const rightHeight = this.$refs.right.clientHeight
@@ -50,8 +83,7 @@ export default {
                 this.updateWaterfall()
             })
         }
-    },
-    created() {}
+    }
 }
 </script>
 <style lang="stylus">
@@ -88,6 +120,7 @@ export default {
             .post-dot
                 right: -47px;
         .right
+            padding-top 30px
             .post-item
                 &:after
                     left -6px

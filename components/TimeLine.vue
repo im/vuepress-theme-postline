@@ -6,13 +6,14 @@
                 <PostBox :pages="loadPages" ref="postBox"></PostBox>
             </div>
             <div class="loading" v-if="loading">
-                <Loading></Loading>
+                <Loading :type="loadingType"></Loading>
             </div>
         </div>
     </ClientOnly>
 </template>
 
 <script>
+import { randomLoading } from '../util'
 import PostBox from '@theme/components/PostBox.vue'
 import Loading from '@theme/components/Loading.vue'
 export default {
@@ -27,7 +28,8 @@ export default {
         return {
             loadPages: [],
             isDefaultLoad: false,
-            loading: false
+            loading: false,
+            loadingType: ''
         }
     },
     components: {
@@ -49,11 +51,15 @@ export default {
     },
 
     methods: {
+        getLoadingType () {
+            this.loadingType = randomLoading()
+        },
         loadMore() {
             if (this.isDefaultLoad) return (this.isDefaultLoad = false)
             this.setPagesShow(5)
         },
         setPagesShow(num) {
+            this.getLoadingType()
             this.loading = true
             if (!this.pages.length) {
                 this.loading = false
@@ -81,10 +87,13 @@ export default {
 .time-line-box.layout-inner
     padding-top 95px
     .loading
-        height 90px
-        text-align center
+        height 120px
+        display: flex;
+        justify-content: center;
+        align-items: center;
     .time-line-main
         position relative
+        padding-top 30px
     .timeline-bar
         background-color #f1f1f1
         width 6px

@@ -2,7 +2,7 @@
     <header class="top-bar">
         <div class="layout-inner">
             <h1 class="logo">
-                <a href="/">{{$site.title}}</a>
+                <a :href="$site.base" :title="$site.title">{{$site.title}}</a>
             </h1>
             <div class="search" v-if="$themeConfig.search">
                 <SearchBox />

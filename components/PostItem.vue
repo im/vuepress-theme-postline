@@ -6,7 +6,10 @@
         <div class="post-dot"></div>
 
         <div class="post-title">
-            <a :href="getPostPath(post.path)" :title="post.title">{{post.title}}</a>
+            <a :href="getPostPath(post.path)" :title="post.title">
+                {{post.title}}
+                <span class="date">{{post.createDate.date}}</span>
+            </a>
         </div>
 
         <div class="post-img" v-if="$themeConfig.cover && !isMobile()">
@@ -90,10 +93,9 @@ export default {
             return len
         },
         getCover(post) {
-            const len = this.getFontLen(post.title)
             if (post.frontmatter.cover) return post.frontmatter.cover
-            const  url = true ? `https://picsum.photos/400/150/?random&${new Date().getTime()}` : `https://fakeimg.pl/150/f1f1f1/9d9d9d/?retina=1&text=${post.title}&font=noto`
-            return url
+            post.frontmatter.cover = `https://picsum.photos/400/150/?random&${post.key}`
+            return `https://picsum.photos/400/150/?random&${post.key}`
         }
     },
 
@@ -120,6 +122,8 @@ export default {
         .post-title
             a
                 color #39aa56
+            .date
+                transform:rotate(7deg);
         .post-dot
             border solid 3px #39aa56
     .post-date-top
@@ -158,11 +162,22 @@ export default {
         border-radius 100%
 .post-title
     margin-bottom 10px
+    position relative
+    display block
     a
+        font-weight bold
         font-size 18px
         color #666
+        transition 0.4s
         &:hover
             text-decoration underline
+        .date
+            transition 0.4s
+            position absolute
+            right 0px
+            top 0px
+            font-size: 12px
+            color rgba(57,170,86, 0.3)
 .post-img
     max-width 100%
     margin 0 0 5px
