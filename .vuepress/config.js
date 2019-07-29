@@ -4,7 +4,7 @@ module.exports = {
     title: 'vuepress-theme-postline',
     description: '基于vuepres 主题',
     theme: 'postline',
-    // permalink: "/:year/:month/:day/:slug",
+    permalink: "/:year/:month/:day/:slug",
     markdown: {
         lineNumbers: true
     },
