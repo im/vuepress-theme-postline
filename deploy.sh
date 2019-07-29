@@ -4,7 +4,6 @@
 set -e
 
 npm install -g vuepress
-npm install vue-infinite-scroll
 npm install vuepress-theme-postline
 npm install moment
 
