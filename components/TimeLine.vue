@@ -1,13 +1,15 @@
 <template>
-    <div class="layout-inner time-line-box" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-        <div class="time-line-main">
-            <div class="timeline-bar"></div>
-            <PostBox :pages="pages"></PostBox>
+    <ClientOnly>
+        <div class="layout-inner time-line-box" ref="timeLineBox" :infinite-scroll-disabled="busy">
+            <div class="time-line-main">
+                <div class="timeline-bar"></div>
+                <PostBox :pages="pages"></PostBox>
+            </div>
+            <div class="loading" v-if="loading">
+                <Loading></Loading>
+            </div>
         </div>
-        <div class="loading" v-if="loading">
-            <Loading></Loading>
-        </div>
-    </div>
+    </ClientOnly>
 </template>
 
 <script>
@@ -30,12 +32,22 @@ export default {
             loading: false
         }
     },
-
     components: {
         PostBox,
         Loading
     },
     mounted() {
+        const vnode = {
+            context: this
+        }
+        const binding = {
+            value : this.loadMore
+        }
+        import('../directive/infinite-scroll/index.js').then(module => {
+            this.$nextTick(() => {
+                module.default(this.$refs.timeLineBox, binding,  vnode)
+            })
+        })
     },
 
     methods: {
