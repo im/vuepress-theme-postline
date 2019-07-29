@@ -41,7 +41,6 @@ export default {
         formatPages () {
             this.$site.pages.forEach((page) => {
                 page.createDate = this.getCreateDate(page);
-                page.show = false
             })
             return this.$site.pages.sort((a, b) => {
                 return b.createDate.timestamp - a.createDate.timestamp
@@ -74,6 +73,7 @@ export default {
         }
     },
     created () {
+        console.log(this);
     }
 }
 </script>

@@ -6,14 +6,14 @@
         <div class="post-dot"></div>
 
         <div class="post-title">
-            <a :href="post.path" :title="post.title">{{post.title}}</a>
+            <a :href="getPostPath(post.path)" :title="post.title">{{post.title}}</a>
         </div>
 
         <div class="post-img" v-if="$themeConfig.cover && !isMobile()">
             <div class="img-loading">
                 <Loading ref="loading" :type="getLoadingType()"></Loading>
             </div>
-            <a :href="post.path" class="img-link">
+            <a :href="getPostPath(post.path)" class="img-link">
                 <img src="/" v-loadImg :loadSrc="getCover(post)" :alt="post.title" />
             </a>
         </div>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="square-button">
-            <a :href="post.path" :title="post.title">查看更多</a>
+            <a :href="getPostPath(post.path)" :title="post.title">查看更多</a>
         </div>
 
         <div class="post-meta">
@@ -68,6 +68,9 @@ export default {
         Loading
     },
     methods: {
+        getPostPath (path) {
+            return this.$site.base + path.substr(1)
+        },
         getLoadingType () {
             return randomLoading()
         },
