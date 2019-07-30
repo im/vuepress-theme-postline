@@ -52,9 +52,4 @@ export default {
     width 100%
     height 100%
     position relative
-.medium-zoom--open,.medium-zoom--opened
-    .medium-zoom-overlay
-        z-index 10000
-    .medium-zoom-image--open,.medium-zoom-image--opened
-        z-index 10001
 </style>
