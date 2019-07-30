@@ -2,9 +2,9 @@
     <div class="welcome-main" :class="{completed: isCompleted}">
         <div class="box">
             <div class="welcome-text">Welcome</div>
-            <div class="progress">
+            <div class="progress" :style="{height: progress + '%'}">
                 <div class="text">
-                    100%
+                    {{progress}}%
                 </div>
             </div>
         </div>
@@ -15,10 +15,26 @@
 export default {
     name: 'welcome',
     props: {
+        progress: {
+            type: Number,
+            default: 0
+        }
+    },
+    watch: {
+        progress (val) {
+            if (val === 100) {
+                setTimeout(() => {
+                    this.isCompleted = true;
+                    setTimeout(() => {
+                        this.$emit('completed')
+                    }, 1000)
+                }, 1000)
+            }
+        }
     },
     data () {
         return {
-            isCompleted: true
+            isCompleted: false
         }
     },
     computed: {},

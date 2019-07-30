@@ -1,14 +1,14 @@
 <template>
     <div class="home-main layout-inner" :class="{'show-welcome': isShowWelcome}">
        <TimeLine :pages="pages"></TimeLine>
-       <Welcome :progress="100" @completed="completed"></Welcome>
+       <Welcome :progress="progress" v-if="isShowWelcome" @completed="completed"></Welcome>
     </div>
 </template>
 
 <script>
 import TimeLine from '@theme/components/TimeLine.vue'
 import Welcome from '@theme/components/Welcome.vue'
-import { randomLoading } from '../util'
+import { randomLoading, setLocalStorage, getLocalStorage, removeLocalStorage } from '../util'
 import moment from 'moment'
 export default {
     name: 'home',
@@ -19,7 +19,10 @@ export default {
 
     data() {
         return {
-            isShowWelcome: true
+            isShowWelcome: true,
+            loadImageIndex: 0,
+            progress: 0,
+            showTotal: 10
         }
     },
 
@@ -33,7 +36,36 @@ export default {
     },
 
     methods: {
-        completed () {},
+        completed () {
+            this.isShowWelcome = false;
+        },
+        loadFirstImage () {
+            this.pages.forEach((page, index) => {
+                if (index < this.showTotal) {
+                    let newImg = new Image()
+                    newImg.src = page.frontmatter.cover
+                    newImg.onload = () => {
+                        this.loadImageIndex++
+                        this.progress = +((this.loadImageIndex / this.showTotal) * 100).toFixed(2)
+                    }
+                }
+            })
+        },
+        setCover (pages) {
+            const coverMap = getLocalStorage('coverMap')
+            pages.forEach((page, index) => {
+                const key = page.key
+                if (!page.frontmatter.cover) {
+                    if (coverMap[key]) {
+                        page.frontmatter.cover = coverMap[key];
+                    } else {
+                        page.frontmatter.cover = `https://picsum.photos/id/${index}/400/150/?${page.key}`
+                    }
+                    coverMap[key] = page.frontmatter.cover
+                }
+            })
+            setLocalStorage('coverMap', coverMap)
+        },
         getLoadingType () {
             return randomLoading()
         },
@@ -44,6 +76,7 @@ export default {
             const pages = this.$site.pages.sort((a, b) => {
                 return b.createDate.timestamp - a.createDate.timestamp
             }).filter(v => !v.frontmatter.home)
+            this.setCover(pages)
             return pages
         },
         getCreateDate (page) {
@@ -75,6 +108,7 @@ export default {
     beforeDestroy () {
     },
     created () {
+        this.loadFirstImage()
     }
 }
 </script>
@@ -84,6 +118,7 @@ export default {
     padding-top 95px
     height 100%
     &.show-welcome
+        max-width 100%
         overflow hidden
         position relative
 </style>
