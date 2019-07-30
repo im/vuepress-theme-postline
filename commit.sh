@@ -11,14 +11,13 @@ npm version patch
 npm publish
 git push --tags
 
+echo 'vuepress-theme-postline deploy success'
+
 cd ../../
 git add .
 git commit -m "update theme"
 git push
 
-npm install -g vuepress
-npm install vuepress-theme-postline
-npm install moment
-npm install medium-zoom
+echo 'commit  success'
 
 cd -
