@@ -16,8 +16,9 @@
             <div class="img-loading">
                 <Loading ref="loading" :type="getLoadingType()"></Loading>
             </div>
-            <a :href="getPostPath(post.path)" class="img-link">
-                <img class="zoom-custom-imgs" src="/" v-loadImg :loadSrc="post.frontmatter.cover" :alt="post.title" />
+            <!-- <a :href="getPostPath(post.path)" class="img-link"> -->
+            <a href="javascript:;" class="img-link">
+                <img class="zoom-custom-imgs" src="/" v-loadImg :loadSrc="post.frontmatter.cover" :alt="post.title" :data-zoom-src="post.frontmatter.maxCover" />
             </a>
         </div>
 
@@ -69,6 +70,8 @@ export default {
     },
     components: {
         Loading
+    },
+    mounted () {
     },
     methods: {
         getPostPath (path) {

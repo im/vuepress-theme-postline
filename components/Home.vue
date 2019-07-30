@@ -64,6 +64,7 @@ export default {
                     } else {
                         page.frontmatter.cover = `https://picsum.photos/id/${index}/400/150/?${page.key}`
                     }
+                    page.frontmatter.maxCover = `https://picsum.photos/id/${index}/1000/500/?${page.key}`
                     coverMap[key] = page.frontmatter.cover
                 }
             })
@@ -118,7 +119,7 @@ export default {
 
 <style lang="stylus">
 .home-main
-    padding-top 95px
+    padding-top 95px!important
     height 100%
     &.show-welcome
         max-width 100%

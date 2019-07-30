@@ -32,6 +32,10 @@ export default {
         PostItem
     },
     mounted() {
+        import('medium-zoom').then(module => {
+            module.default('.zoom-custom-imgs', {
+            })
+        })
         this.updateWaterfall()
         this.polling()
     },
