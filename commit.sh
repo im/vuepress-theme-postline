@@ -3,6 +3,8 @@
 # 确保脚本抛出遇到的错误
 set -e
 
+echo '============== vuepress-theme-postline ====== publish'
+
 cd .vuepress/theme
 git add .
 git commit -m "updat theme"
@@ -11,13 +13,13 @@ npm version patch
 npm publish
 git push --tags
 
-echo 'vuepress-theme-postline deploy success'
+echo 'vuepress-theme-postline deploy success  ======== '
 
 cd ../../
 git add .
 git commit -m "update theme"
 git push
 
-echo 'commit  success'
+echo 'commit  success  <=====>====='
 
 cd -
