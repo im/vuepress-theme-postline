@@ -1,7 +1,7 @@
 <template>
     <div class="home-main layout-inner" :class="{'show-welcome': isShowWelcome}">
-       <TimeLine :pages="pages"></TimeLine>
-       <Welcome :progress="progress" v-if="isShowWelcome" @completed="completed"></Welcome>
+        <TimeLine :pages="pages"></TimeLine>
+        <Welcome :progress="progress" v-if="isShowWelcome" @completed="completed"></Welcome>
     </div>
 </template>
 
@@ -22,7 +22,8 @@ export default {
             isShowWelcome: true,
             loadImageIndex: 0,
             progress: 0,
-            showTotal: 10
+            showTotal: 10,
+            copyPages: []
         }
     },
 
@@ -33,6 +34,8 @@ export default {
     },
 
     mounted() {
+        this.setCover(this.copyPages)
+        this.loadFirstImage()
     },
 
     methods: {
@@ -40,7 +43,7 @@ export default {
             this.isShowWelcome = false;
         },
         loadFirstImage () {
-            this.pages.forEach((page, index) => {
+            this.copyPages.forEach((page, index) => {
                 if (index < this.showTotal) {
                     let newImg = new Image()
                     newImg.src = page.frontmatter.cover
@@ -52,7 +55,7 @@ export default {
             })
         },
         setCover (pages) {
-            const coverMap = window.localStorage.getItem('coverMap') ? JSON.parse(window.localStorage.getItem('coverMap')) : {}
+            const coverMap = localStorage.getItem('coverMap') ? JSON.parse(localStorage.getItem('coverMap')) : {}
             pages.forEach((page, index) => {
                 const key = page.key
                 if (!page.frontmatter.cover) {
@@ -64,7 +67,7 @@ export default {
                     coverMap[key] = page.frontmatter.cover
                 }
             })
-            window.localStorage.setItem('coverMap', JSON.stringify(coverMap))
+            localStorage.setItem('coverMap', JSON.stringify(coverMap))
         },
         getLoadingType () {
             return randomLoading()
@@ -76,7 +79,7 @@ export default {
             const pages = this.$site.pages.sort((a, b) => {
                 return b.createDate.timestamp - a.createDate.timestamp
             }).filter(v => !v.frontmatter.home)
-            this.setCover(pages)
+            this.copyPages = [...pages]
             return pages
         },
         getCreateDate (page) {
@@ -108,7 +111,7 @@ export default {
     beforeDestroy () {
     },
     created () {
-        this.loadFirstImage()
+        
     }
 }
 </script>
