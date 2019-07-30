@@ -8,7 +8,7 @@
 <script>
 import TimeLine from '@theme/components/TimeLine.vue'
 import Welcome from '@theme/components/Welcome.vue'
-import { randomLoading, setLocalStorage, getLocalStorage, removeLocalStorage } from '../util'
+import { randomLoading } from '../util'
 import moment from 'moment'
 export default {
     name: 'home',
@@ -52,7 +52,7 @@ export default {
             })
         },
         setCover (pages) {
-            const coverMap = getLocalStorage('coverMap')
+            const coverMap = window.localStorage.getItem('coverMap') ? JSON.parse(window.localStorage.getItem('coverMap')) : {}
             pages.forEach((page, index) => {
                 const key = page.key
                 if (!page.frontmatter.cover) {
@@ -64,7 +64,7 @@ export default {
                     coverMap[key] = page.frontmatter.cover
                 }
             })
-            setLocalStorage('coverMap', coverMap)
+            window.localStorage.setItem('coverMap', JSON.stringify(coverMap))
         },
         getLoadingType () {
             return randomLoading()

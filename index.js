@@ -11,13 +11,21 @@ module.exports = (options, ctx) => ({
                         date: moment(timestamp).format('YYYY-MM-DD'),
                         year: moment(timestamp).format('YYYY'),
                         month: moment(timestamp).format('MM'),
-                        day:  moment(timestamp).format('DD'),
+                        day: moment(timestamp).format('DD'),
                         timestamp: timestamp,
                         fromNow: moment(timestamp).fromNow()
                     }
                 }
             }
         ],
+        '@vuepress/medium-zoom', {
+            selector: 'img.zoom-custom-imgs',
+            // medium-zoom options here
+            // See: https://github.com/francoischalifour/medium-zoom#options
+            options: {
+                margin: 16
+            }
+        },
         '@vuepress/search',
         '@vuepress/nprogress',
         ['container', {

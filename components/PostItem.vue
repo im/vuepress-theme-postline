@@ -17,7 +17,7 @@
                 <Loading ref="loading" :type="getLoadingType()"></Loading>
             </div>
             <a :href="getPostPath(post.path)" class="img-link">
-                <img src="/" v-loadImg :loadSrc="post.frontmatter.cover" :alt="post.title" />
+                <img class="zoom-custom-imgs" src="/" v-loadImg :loadSrc="post.frontmatter.cover" :alt="post.title" />
             </a>
         </div>
 
