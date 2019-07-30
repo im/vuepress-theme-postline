@@ -51,6 +51,9 @@ export default {
                         this.loadImageIndex++
                         this.progress = +((this.loadImageIndex / this.showTotal) * 100).toFixed(2)
                     }
+                    newImg.onerror =  () => {
+                        this.loadImageIndex++
+                    }
                 }
             })
         },
