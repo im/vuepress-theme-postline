@@ -6,6 +6,7 @@ set -e
 npm install -g vuepress
 npm install vuepress-theme-postline
 npm install moment
+npm install medium-zoom
 
 # 生成静态文件
 npm run build
