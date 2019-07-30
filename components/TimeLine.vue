@@ -1,6 +1,6 @@
 <template>
     <ClientOnly>
-        <div class="layout-inner time-line-box" ref="timeLineBox">
+        <div class="time-line-box" ref="timeLineBox">
             <div class="time-line-main">
                 <div class="timeline-bar"></div>
                 <PostBox :pages="loadPages" ref="postBox"></PostBox>
@@ -84,8 +84,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.time-line-box.layout-inner
-    padding-top 95px
+.time-line-box
     .loading
         height 120px
         display: flex;

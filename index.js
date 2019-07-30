@@ -19,7 +19,7 @@ module.exports = (options, ctx) => ({
             }
         ],
         '@vuepress/search',
-        '@vuepress/plugin-nprogress',
+        '@vuepress/nprogress',
         ['container', {
             type: 'tip',
             defaultTitle: {
