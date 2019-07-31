@@ -126,6 +126,7 @@ export default {
             a
                 color #39aa56
             .date
+                color #39aa56
                 transform:rotate(7deg);
         .post-dot
             border solid 3px #39aa56
