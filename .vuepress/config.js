@@ -1,5 +1,8 @@
 module.exports = {
     port: 9090,
+    head: [
+        ['link', { rel: 'shortcut icon', type: "image/x-icon", href: `./favicon.ico` }]
+    ],
     base: '/vuepress-theme-postline/',
     title: 'Postline',
     description: '基于vuepres 主题 vuepress-theme-postline',
