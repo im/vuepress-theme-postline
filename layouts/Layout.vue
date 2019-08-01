@@ -2,11 +2,7 @@
     <div class="theme-container postline">
         <TopBar></TopBar>
         <Home v-if="isHome"></Home>
-        <!-- <div class="postline-loading" v-if="loading">
-            <Loading ref="loading" :type="getLoadingType()"></Loading>
-        </div>
-        <TimeLine v-if="isHome" :pages="pages"></TimeLine>
-        <Page v-else></Page>-->
+        <Page v-else></Page>
     </div>
 </template>
 
@@ -17,6 +13,7 @@ import TopBar from '@theme/components/TopBar.vue'
 export default {
     components: {
         TopBar,
+        Page,
         Home
     },
 

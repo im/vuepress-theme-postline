@@ -16,12 +16,19 @@
             </a>
             <span class="post-date-bottom" v-if="page.lastUpdated">更新于：{{page.lastUpdated.fromNow}}</span>
         </div>
+
+
+        <div class="comment">
+            <Comment></Comment>
+        </div>
     </div>
 </template>
 
 <script>
+import Comment from '@theme/components/Comment.vue'
 export default {
     name: 'post-item',
+    components: { Comment },
     props: {
         post: {
             type: Object,
@@ -36,20 +43,15 @@ export default {
     watch: {
     },
     mounted () {
-        this.$nextTick(() => {
-            setTimeout(() => {
-                this.$bus.$emit('loaded')
-            }, 300)
-        })
     }
 }
 </script>
 
 <style lang="stylus">
 .page-main
-    padding 70px 10px
+    padding 70px 40px
     .page-content
-         min-height calc(100vh - 220px)
+        //  min-height calc(100vh - 220px)
     a
         text-decoration underline!important
     .post-img

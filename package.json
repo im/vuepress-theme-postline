@@ -11,5 +11,8 @@
     "devDependencies": {
         "medium-zoom": "^1.0.4",
         "moment": "^2.24.0"
+    },
+    "dependencies": {
+        "gitalk": "^1.5.0"
     }
 }
