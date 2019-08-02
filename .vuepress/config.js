@@ -21,17 +21,13 @@ module.exports = {
         lastUpdated: true,
         search: true,
         cover: true,
-        gitalk: {
-            clientID: '80e4875d4f5c8c0a5dda',
-            clientSecret: '6515fc31a6efb26edd7342d08d409f709991c170',
+        gitment: {
+            oauth: {
+                client_id: '80e4875d4f5c8c0a5dda',
+                client_secret: '6515fc31a6efb26edd7342d08d409f709991c170',
+            },
             repo: 'vuepress-theme-postline',
-            owner: 'im',
-            // admin: [
-            //     'GitHub repo owner and collaborators, only these guys can initialize github issues'
-            // ],
-            // id: location.pathname, // Ensure uniqueness and length less than 50
-            distractionFreeMode: false, // Facebook-like distraction free mode
-            language: 'zh-CN'
+            owner: 'im'
         }
     },
 };

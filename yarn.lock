@@ -106,6 +106,13 @@ github-markdown-css@2.8.0:
   resolved "https://registry.yarnpkg.com/github-markdown-css/-/github-markdown-css-2.8.0.tgz#9c03f646f550b7e3fd9ee0ae29ee03ea2fe683a3"
   integrity sha1-nAP2RvVQt+P9nuCuKe4D6i/mg6M=
 
+gitment@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/gitment/-/gitment-0.0.3.tgz#dbccbad7480b1345b656913bd70eff792a7b38b8"
+  integrity sha1-28y610gLE0W2VpE71w7/eSp7OLg=
+  dependencies:
+    mobx "^3.1.7"
+
 has-symbols@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
@@ -177,6 +184,11 @@ medium-zoom@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/medium-zoom/-/medium-zoom-0.4.0.tgz#8e13c9b754903c0c903220611af0d3cd373a4222"
   integrity sha512-0z7yMfd6I1BTCAa8QaR4cp5AqDkQD571GzhHIbbfefKEssGLSvs+4Xai/itOAncm4FBlF5gUoMQ22yW9/f8Sig==
+
+mobx@^3.1.7:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.6.2.tgz#fb9f5ff5090539a1ad54e75dc4c098b602693320"
+  integrity sha512-Dq3boJFLpZEvuh5a/MbHLUIyN9XobKWIb0dBfkNOJffNkE3vtuY0C9kSDVpfH8BB0BPkVw8g22qCv7d05LEhKg==
 
 moment@^2.24.0:
   version "2.24.0"
