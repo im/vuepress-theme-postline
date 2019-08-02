@@ -5,36 +5,32 @@
 </template>
 
 <script>
-import 'gitalk/dist/gitalk.css'
-import Gitalk from 'gitalk'
+import 'gitment/style/default.css'
 export default {
     name: 'comment',
     components: {},
     data() {
         return {
-            gitalk: null
+            gitment: null
         }
     },
 
     computed: {},
 
     mounted() {
-        import('gitalk').then(module => {
-            const Gitalk = module.default
-            const config = this.$themeConfig.gitalk
-            this.gitalk = new Gitalk({
-                clientID: config.clientID,
-                clientSecret: config.clientSecret,
+        import('gitment').then(module => {
+            const gitment = module.default
+            const config = this.$themeConfig.gitment
+            this.gitment = new gitment({
+                oauth: {
+                    client_id: config.oauth.client_id,
+                    client_secret: config.oauth.client_secret,
+                },
                 repo: config.repo,
                 owner: config.owner,
-                admin: [
-                    '糖小米'
-                ],
-                id: location.pathname, // Ensure uniqueness and length less than 50
-                distractionFreeMode: false, // Facebook-like distraction free mode
-                language: 'zh-CN'
+                id: location.pathname
             })
-            this.gitalk.render("gitalk-container");
+            this.gitment.render("gitalk-container");
         })
     },
 
