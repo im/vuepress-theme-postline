@@ -26,7 +26,7 @@ module.exports = {
             clientSecret: '6515fc31a6efb26edd7342d08d409f709991c170',
             repo: 'vuepress-theme-postline',
             owner: 'im',
-            admin: ['糖小米']// Faceboo
+            admin: ['im']// Faceboo
         },
         gitment: {
             oauth: {
