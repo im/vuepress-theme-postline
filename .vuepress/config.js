@@ -21,6 +21,13 @@ module.exports = {
         lastUpdated: true,
         search: true,
         cover: true,
+        gitalk: {
+            clientID: '80e4875d4f5c8c0a5dda',
+            clientSecret: '6515fc31a6efb26edd7342d08d409f709991c170',
+            repo: 'vuepress-theme-postline',
+            owner: 'im',
+            admin: ['糖小米']// Faceboo
+        },
         gitment: {
             oauth: {
                 client_id: '80e4875d4f5c8c0a5dda',
