@@ -27,7 +27,9 @@ export default {
                 repo: config.repo,
                 owner: config.owner,
                 admin: config.admin,
-                id: location.pathname,
+                // id: location.pathname,
+                id: 'gitalk',
+                labels: config.labels,
                 language: config.language,
                 distractionFreeMode: config.distractionFreeMode
             })
