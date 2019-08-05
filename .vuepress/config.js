@@ -27,7 +27,8 @@ module.exports = {
             repo: 'vuepress-theme-postline',
             owner: 'im',
             admin: ['im'],
-            distractionFreeMode: false
+            distractionFreeMode: false,
+            language: 'zh-CN'
         }
     },
 };
