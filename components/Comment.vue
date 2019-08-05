@@ -28,6 +28,7 @@ export default {
                 owner: config.owner,
                 admin: config.admin,
                 id: location.pathname,
+                language: config.language,
                 distractionFreeMode: config.distractionFreeMode
             })
             this.gitalk.render("gitalk-container");
