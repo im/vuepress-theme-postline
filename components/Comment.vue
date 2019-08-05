@@ -27,7 +27,8 @@ export default {
                 clientSecret: config.clientSecret,
                 repo: config.repo,
                 owner: config.owner,
-                admin: config.admin
+                admin: config.admin,
+                id: window.location.hash
             })
             this.gitalk.render("gitalk-container");
         })
