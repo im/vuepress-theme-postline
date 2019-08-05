@@ -19,7 +19,6 @@ export default {
 
     mounted() {
         import('gitalk').then(module => {
-            console.log('module: ', module);
             const gitalk = module.default
             const config = this.$themeConfig.gitalk
             this.gitalk = new gitalk({
@@ -28,7 +27,8 @@ export default {
                 repo: config.repo,
                 owner: config.owner,
                 admin: config.admin,
-                id: window.location.hash
+                id: location.pathname,
+                distractionFreeMode: config.distractionFreeMode
             })
             this.gitalk.render("gitalk-container");
         })

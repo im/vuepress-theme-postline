@@ -49,7 +49,7 @@ export default {
 
 <style lang="stylus">
 .page-main
-    padding 70px 40px
+    padding 70px 40px!important
     .page-content
         //  min-height calc(100vh - 220px)
     a

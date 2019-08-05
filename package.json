@@ -1,6 +1,6 @@
 {
     "name": "vuepress-theme-postline",
-    "version": "0.3.13",
+    "version": "0.3.11",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -13,7 +13,6 @@
         "moment": "^2.24.0"
     },
     "dependencies": {
-        "gitalk": "^1.5.0",
-        "gitment": "^0.0.3"
+        "gitalk": "^1.5.0"
     }
 }
