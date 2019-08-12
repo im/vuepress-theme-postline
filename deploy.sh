@@ -16,7 +16,7 @@ npm run build
 cd .vuepress/dist
 
 # 如果是发布到自定义域名
-# echo 'tangxiaomi.top' > CNAME
+echo 'postline.js.org' > CNAME
 
 git init
 git add -A
